@@ -23,7 +23,11 @@ services:
           - database
     ports:
       - "27017:27017"
-
+    volumes:
+    - /home/docker/data/db:/data/db
+    deploy:
+      placement:
+        constraints: [node.role == manager]
   queue:
     image: redis:3.2
     networks:
@@ -32,6 +36,11 @@ services:
           - queue
     ports:
       - "6379:6379"
+    volumes:
+      - /home/docker/data:/data
+    deploy:
+      placement:
+        constraints: [node.role == manager]
     healthcheck:
       test: '[ $$(redis-cli ping) = "PONG" ] || exit 1 ]'
       timeout: 2s
@@ -46,6 +55,9 @@ services:
         condition: on-failure
     networks:
       - votenet
+    deploy:
+      placement:
+        constraints: [node.role == worker]
 
   vote:
     image: bootcamps/vote
@@ -61,3 +73,12 @@ services:
       interval: 5s
       retries: 10
 
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "9090:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
