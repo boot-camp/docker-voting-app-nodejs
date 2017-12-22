@@ -1,24 +1,17 @@
 version: '3'
 
 networks:
-  votenet:
+  frontend_net:
+    driver: overlay
+  backend_net:
     driver: overlay
 
 services:
 
-  assessor:
-    image: subfuzion/assessor
-    networks:
-      votenet:
-        aliases:
-          - assessor
-    ports:
-      - "9000"
-
   database:
     image: mongo:3.4
     networks:
-      votenet:
+      backend_net:
         aliases:
           - database
     ports:
@@ -27,7 +20,7 @@ services:
   queue:
     image: redis:3.2
     networks:
-      votenet:
+      backend_net:
         aliases:
           - queue
     ports:
@@ -39,22 +32,19 @@ services:
       retries: 5
 
   worker:
-    image: bootcamps/vote-worker
-    deploy:
-      replicas: 2
-      restart_policy:
-        condition: on-failure
+    image: worker
     networks:
-      - votenet
+      - backend_net
 
   vote:
-    image: bootcamps/vote
+    image: vote
     networks:
-      votenet:
+      frontend_net:
         aliases:
           - vote
+      backend_net:
     ports:
-      - "5000:3000"
+      - "3000:3000"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost" ]
       timeout: 1s
