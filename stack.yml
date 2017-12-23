@@ -7,11 +7,11 @@ networks:
 services:
 
   assessor:
-    image: subfuzion/assessor
+    image: subfuzion/auditor
     networks:
       votenet:
         aliases:
-          - assessor
+          - auditor
 
   database:
     image: mongo:3.4
