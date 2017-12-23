@@ -1,17 +1,38 @@
+---
+Title: Voting App
+---
+# Docker Voting App (Node.js version)
+
 | Service  | Docker Image           | Build Status |
 |:---------|:-----------------------|:-------------|
-| API      | subfuzion/vote-api     | [![Docker Build Status](https://img.shields.io/docker/build/subfuzion/vote-api.svg)](subfuzion/vote-api)
-| Worker   | subfuzion/vote-worker  | [![Docker Build Status](https://img.shields.io/docker/build/subfuzion/vote-worker.svg)](subfuzion/vote-worker)
-| Auditor  | subfuzion/vote-auditor | [![Docker Build Status](https://img.shields.io/docker/build/subfuzion/vote-auditor.svg)](subfuzion/vote-auditor)
+| API      | bootcamps/vote         | [![Docker Build Status](https://img.shields.io/docker/build/bootcamps/vote.svg)](bootcamps/vote)
+| Worker   | bootcamps/vote-worker  | [![Docker Build Status](https://img.shields.io/docker/build/bootcamps/vote-worker.svg)](bootcamps/vote-worker)
+| Auditor  | bootcamps/vote-auditor | [![Docker Build Status](https://img.shields.io/docker/build/bootcamps/vote-auditor.svg)](bootcamps/vote-auditor)
 
 | Node.js Packages    | npm                    | Build Status |
 |:--------------------|:-----------------------|:------------ |
 | @subfuzion/database | [![npm (scoped)](https://img.shields.io/npm/v/@subfuzion/database.svg)](@subfuzion/database) | [![Travis](https://img.shields.io/travis/subfuzion/docker-voting-app-nodejs.svg)](subfuzion/docker-voting-app-nodejs)
 | @subfuzion/queue    | [![npm (scoped)](https://img.shields.io/npm/v/@subfuzion/queue.svg)](@subfuzion/queue) | [![Travis](https://img.shields.io/travis/subfuzion/docker-voting-app-nodejs.svg)](subfuzion/docker-voting-app-nodejs)
 
-# Docker Voting App (Node.js version)
+## Quick Reference
 
-This app is inspired by the original [Docker](https://docker.com) [Example Voting App](https://github.com/dockersamples/example-voting-app).
+1. Update stack.yml
+1. Setup auto image build in docker cloud via github trigger
+1. Scp or git clone stack.yml file to PwD
+    ``` shell
+        # start it
+        mkdir -p /home/docker/data/db/
+        docker stack deploy -c stack.yml vote
+        docker stack ps vote
+
+        # use it
+        docker run -it --rm --name=voter -e VOTE_API_HOST=172.18.0.18 -e VOTE_API_PORT=5000  bootcamps/vote-voter vote
+        docker run -it --rm --name=voter -e VOTE_API_HOST=172.18.0.18 -e VOTE_API_PORT=5000  bootcamps/vote-voter results
+    ```
+
+## Introduction
+
+This app is forked from subfuzion and inspired by the original [Docker](https://docker.com) [Example Voting App](https://github.com/dockersamples/example-voting-app).
 
 The original app is an excellent demonstration of how Docker can be used to containerize any of the
 processes of a modern application regardless of the programming language used and runtime environment
@@ -64,18 +85,18 @@ See the [wiki](https://github.com/subfuzion/docker-ucdavis-coursera/wiki) for mo
 
 The application consists of the following:
 
- * **Voter** - this is the client application that users use to cast votes.
- * **Vote** - this is the service that provides a REST API for casting votes and
+* **Voter** - this is the client application that users use to cast votes.
+* **Vote** - this is the service that provides a REST API for casting votes and
    retrieving vote tallies. The `voter` application is the client that uses
    this API. When a vote is posted to the API, the service pushes it to a queue
    for subsequent, asynchronous processing. When a request is made for vote
    results, the service submits a query to a database where votes are ultimately
    stored by a worker processing the queue.
- * **Worker** - this is a background service that watches a queue for votes and stores
+* **Worker** - this is a background service that watches a queue for votes and stores
    them in a database. The worker represents a typical service component designed
    to scale as needed to handle various asynchronous processing tasks, typically pulled from a queue,
    so that the main service doesn't get bogged down handling requests.
- * **Queue** - this is a service that allows the vote service to post votes without
+* **Queue** - this is a service that allows the vote service to post votes without
    slowing down to do any special processing or waiting for a database to save
    votes. The queue is an in-memory data store (using Redis) that enhances performance
    by not requiring the vote service to wait on the database since database operations
@@ -83,10 +104,9 @@ The application consists of the following:
    to continue to accept new API requests faster. Redis (and similar tools) are
    typical components of many real-world applications that require message queue,
    publish-subscribe, key-value storage, or caching support.
- * **Database** - this service (using MongoDB) provides structured data storage and query
+* **Database** - this service (using MongoDB) provides structured data storage and query
    support. One or more types of database are typical service components of most
    real world applications.
-
 
 ## Launching the app
 
@@ -99,14 +119,14 @@ a fully automated processes that starts the app services in a Docker swarm.
 Create a bridge network that will be shared by the services for communication with
 each other:
 
-    $ docker network create -d bridge bridgenet
+    docker network create -d bridge bridgenet
 
 ### Start a MongoDB container
 
 MongoDB is a NoSQL database that we will use for storing votes. There is already
 an existing image that we can use:
 
-    $ docker run -d --network bridgenet --name database mongo
+    docker run -d --network bridgenet --name database mongo
 
 ### Start a Redis container
 
@@ -116,7 +136,7 @@ to the MongoDB database for subsquent query processing.
 
 Like, MongoDB, there is already an existing image that we can use:
 
-    $ docker run \
+    docker run \
         --detach \
         --name=queue \
         --network=bridgenet \
@@ -128,7 +148,7 @@ Like, MongoDB, there is already an existing image that we can use:
 
 or as one line:
 
-    $ docker run --detach --name=queue --network=bridgenet --health-cmd='[ $(redis-cli ping) = "PONG" ] || exit 1' --health-timeout=5s --health-retries=5 --health-interval=5s redis
+    docker run --detach --name=queue --network=bridgenet --health-cmd='[ $(redis-cli ping) = "PONG" ] || exit 1' --health-timeout=5s --health-retries=5 --health-interval=5s redis
 
 ### Start a Vote Worker container
 
@@ -137,13 +157,13 @@ subsequent query processing.
 
 You will need to build the image first:
 
-    $ cd worker
-    $ docker build -t worker .
+    cd worker
+    docker build -t worker .
 
 Then you can start it:
 
-    $ docker run -d --network=bridgenet --name=worker worker
-    
+    docker run -d --network=bridgenet --name=worker worker
+
 ### Start a Vote API container 
 
 The `vote` service provides the API that clients will use to submit votes and fetch
@@ -153,12 +173,12 @@ and it also queries the database to tally the votes.
 
 You will need to build the image first:
 
-    $ cd vote
-    $ docker build -t vote .
+    cd vote
+    docker build -t vote .
 
 Then you can start it:
 
-    $ docker run -d --network=bridgenet --name=vote vote
+    docker run -d --network=bridgenet --name=vote vote
 
 ### Run a Vote client container
 
@@ -167,12 +187,12 @@ voting results.
 
 You will need to build the image first:
 
-    $ cd voter
-    $ docker build -t voter .
+    cd voter
+    docker build -t voter .
 
 Then you can start it:
 
-    $ docker run -it --rm --network=bridgenet --name=voter voter <cmd>
+    docker run -it --rm --network=bridgenet --name=voter voter <cmd>
 
 where `<cmd>` is either `vote` or `results` (if you don't enter any command,
 then usage help will be printed to the terminal).
@@ -186,4 +206,3 @@ produces a report when complete or when the evaluation times out.
 
 See [here](https://github.com/subfuzion/example-voting-app-nodejs/wiki#final-project)
 for instructions on running an assessment for the final project.
-
