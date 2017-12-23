@@ -67,11 +67,6 @@ services:
           - vote
     ports:
       - "5000:3000"
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost" ]
-      timeout: 1s
-      interval: 5s
-      retries: 10
 
   visualizer:
     image: dockersamples/visualizer:stable
