@@ -7,7 +7,7 @@ networks:
 services:
 
   assessor:
-    image: subfuzion/auditor
+    image: bootcamps/vote-auditor
     networks:
       votenet:
         aliases:
