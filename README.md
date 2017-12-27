@@ -164,12 +164,12 @@ Then you can start it:
 
     docker run -d --network=bridgenet --name=worker worker
 
-### Start a Vote API container 
+### Start a Vote API container
 
 The `vote` service provides the API that clients will use to submit votes and fetch
 voting tally results. The vote service receives votes that it then pushes to the
 queue (where they will subsequently pulled by workers and saved to the database),
-and it also queries the database to tally the votes. 
+and it also queries the database to tally the votes.
 
 You will need to build the image first:
 
@@ -202,7 +202,74 @@ then usage help will be printed to the terminal).
 The `assessor` is for evaluating the performance of the Voting App
 running under Docker. It works by monitoring the logs of each service
 for patterns that must be matched to indicate success. The assessor
-produces a report when complete or when the evaluation times out. 
+produces a report when complete or when the evaluation times out.
 
 See [here](https://github.com/subfuzion/example-voting-app-nodejs/wiki#final-project)
 for instructions on running an assessment for the final project.
+
+``` shell
+    _    ____  ____                   ___
+   / \  / ___|/ ___|___  _ __ _ __   |_ _|_ __   ___
+  / _ \| |  _| |   / _ \| '__| '_ \   | || '_ \ / __|
+ / ___ \ |_| | |__| (_) | |  | |_) |  | || | | | (__ _
+/_/   \_\____|\____\___/|_|  | .__/  |___|_| |_|\___(_)
+                             |_|
+
+```
+
+> hash:5a6d6286e5af9bddca8a35d6a993567748d9e2ef86f294ef5a77de72dd8731918d4aae6a8a61480aca6e3365a58b453229c14bef81d01f052093e60af959d7c2  -
+
+``` shell
+    _    ____    ____ ___  ____  ____   ___  ____      _  _____ ___ ___  _   _
+   / \  / ___|  / ___/ _ \|  _ \|  _ \ / _ \|  _ \    / \|_   _|_ _/ _ \| \ | |
+  / _ \| |  _  | |  | | | | |_) | |_) | | | | |_) |  / _ \ | |  | | | | |  \| |
+ / ___ \ |_| | | |__| |_| |  _ <|  __/| |_| |  _ <  / ___ \| |  | | |_| | |\  |
+/_/   \_\____|  \____\___/|_| \_\_|    \___/|_| \_\/_/   \_\_| |___\___/|_| \_|
+
+ ____  _         _    _      _
+|  _ \| |_ ___  | |  | |_ __| |
+| |_) | __/ _ \ | |  | __/ _` |
+|  __/| ||  __/ | |__| || (_| |
+|_|    \__\___| |_____\__\__,_|
+```
+
+In collaboration with
+
+``` shell
+    _    ____ ____   ___  _____ _____
+   / \  / ___/ ___| / _ \|  ___|_   _|
+  / _ \| |  _\___ \| | | | |_    | |  
+ / ___ \ |_| |___) | |_| |  _|   | |  
+/_/   \_\____|____/ \___/|_|     |_|  
+```
+
+``` shell
+    _    ____ ____         __ _     ___
+   / \  / ___/ ___|  ___  / _| |_  |_ _|_ __   ___
+  / _ \| |  _\___ \ / _ \| |_| __|  | || '_ \ / __|
+ / ___ \ |_| |___) | (_) |  _| |_   | || | | | (__ _
+/_/   \_\____|____/ \___/|_|  \__| |___|_| |_|\___(_)
+```
+
+> hash:f858cab48ae4c9011572b62dca0c0fc5b4765864910d16938cea3ede8a98bf301f0de9389c10c2cbe01439c4c40d83998b66b29411ae54ab9998506fa160909d  -
+
+``` shell
+ ____ _____      _        _   _
+|  _ \_   _|    / \   ___| |_(_)_ __   __ _
+| |_) || |     / _ \ / __| __| | '_ \ / _` |
+|  __/ | |    / ___ \\__ \ |_| | | | | (_| |
+|_|    |_|   /_/   \_\___/\__|_|_| |_|\__,_|
+
+  ____           _           ____        _           _
+ / ___|_ __ __ _| |__   __ _/ ___|  ___ | |_   _ ___(_)
+| |  _| '__/ _` | '_ \ / _` \___ \ / _ \| | | | / __| |
+| |_| | | | (_| | | | | (_| |___) | (_) | | |_| \__ \ |
+ \____|_|  \__,_|_| |_|\__,_|____/ \___/|_|\__,_|___/_|
+
+ ____        _       _     _
+/ ___|  ___ (_) __ _| |__ | |_ ___ _ __ __ _
+\___ \ / _ \| |/ _` | '_ \| __/ _ \ '__/ _` |
+ ___) |  __/| | (_| | | | | ||  __/ | | (_| |
+|____/ \___|/ |\__,_|_| |_|\__\___|_|  \__,_|
+          |__/
+```
