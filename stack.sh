@@ -13,12 +13,12 @@
 
 # worker
 
-docker build -t worker -f ./src/worker/Dockerfile .
-
+docker build -t registry.gitlab.com/bootcamp-juniors/vote/worker -f ./src/worker/Dockerfile .
+docker push registry.gitlab.com/bootcamp-juniors/vote/worker:build
 # app
 
-docker build -t vote -f ./src/vote/Dockerfile .
-
+docker build -t registry.gitlab.com/bootcamp-juniors/vote/vote -f ./src/vote/Dockerfile .
+docker push registry.gitlab.com/bootcamp-juniors/vote/vote:build
 # api
 
 
@@ -26,4 +26,5 @@ docker build -t vote -f ./src/vote/Dockerfile .
 
 # Monitoring
 
-docker build -t auditor -f ./src/auditor/Dockerfile .
+docker build -t registry.gitlab.com/bootcamp-juniors/vote/auditor -f ./src/auditor/Dockerfile .
+docker push registry.gitlab.com/bootcamp-juniors/vote/auditor:build
