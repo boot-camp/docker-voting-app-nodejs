@@ -449,6 +449,7 @@ production:
       docker build -t "$CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG" .
     else
       if [[ -f stack.sh ]]; then
+        chmod +x stack.sh
         ./stack.sh
       else
         echo "Building Heroku-based application using gliderlabs/herokuish docker image..."
