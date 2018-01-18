@@ -51,7 +51,7 @@ start_stack() {
 
 args=`getopt -o hbu --long help,build,up: -- "$@"`
 if [ $? != 0 ] ; then usage; exit 1 ; fi
-eval set -- args
+eval set -- $args
 
 # verification - before
 
