@@ -453,7 +453,7 @@ production:
     else
       if [[ -f stack.sh ]]; then
         chmod +x stack.sh
-        ./stack.sh
+        ./stack.sh --build
       fi
       echo "Building Heroku-based application using gliderlabs/herokuish docker image..."
       docker run -i --name="$CI_CONTAINER_NAME" -v "$(pwd):/tmp/app:ro" gliderlabs/herokuish /bin/herokuish buildpack build
