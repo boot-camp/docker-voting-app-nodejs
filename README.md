@@ -3,11 +3,14 @@ Title: Voting App
 ---
 # Docker Voting App (Node.js version)
 
-| Service  | Docker Image           | Build Status |
+[![pipeline status](https://gitlab.com/bootcamp-juniors/vote/badges/master/pipeline.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master) [![coverage report](https://gitlab.com/bootcamp-juniors/vote/badges/master/coverage.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master)
+
+| Service  | Docker Image           |
 |:---------|:-----------------------|:-------------|
-| API      | bootcamps/vote         | [![Docker Build Status](https://img.shields.io/docker/build/bootcamps/vote.svg)](bootcamps/vote)
-| Worker   | bootcamps/vote-worker  | [![Docker Build Status](https://img.shields.io/docker/build/bootcamps/vote-worker.svg)](bootcamps/vote-worker)
-| Auditor  | bootcamps/vote-auditor | [![Docker Build Status](https://img.shields.io/docker/build/bootcamps/vote-auditor.svg)](bootcamps/vote-auditor)
+| API      | registry.gitlab.com/bootcamp-juniors/vote/vote     |
+| Worker   | registry.gitlab.com/bootcamp-juniors/vote/worker   |
+| Auditor  | registry.gitlab.com/bootcamp-juniors/vote/auditor  |
+| Client  | registry.gitlab.com/bootcamp-juniors/vote/voter     |
 
 | Node.js Packages    | npm                    | Build Status |
 |:--------------------|:-----------------------|:------------ |
@@ -164,12 +167,12 @@ Then you can start it:
 
     docker run -d --network=bridgenet --name=worker worker
 
-### Start a Vote API container 
+### Start a Vote API container
 
 The `vote` service provides the API that clients will use to submit votes and fetch
 voting tally results. The vote service receives votes that it then pushes to the
 queue (where they will subsequently pulled by workers and saved to the database),
-and it also queries the database to tally the votes. 
+and it also queries the database to tally the votes.
 
 You will need to build the image first:
 
@@ -202,7 +205,7 @@ then usage help will be printed to the terminal).
 The `assessor` is for evaluating the performance of the Voting App
 running under Docker. It works by monitoring the logs of each service
 for patterns that must be matched to indicate success. The assessor
-produces a report when complete or when the evaluation times out. 
+produces a report when complete or when the evaluation times out.
 
 See [here](https://github.com/subfuzion/example-voting-app-nodejs/wiki#final-project)
 for instructions on running an assessment for the final project.
