@@ -1,8 +1,3 @@
 {
-    "gitflow4code.features": [
-        {
-            "name": "feature/00001-Gitlab-CI",
-            "base": "develop"
-        }
-    ]
+    "gitflow4code.features": []
 }
