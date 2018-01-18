@@ -58,7 +58,7 @@ eval set -- args
 echo "Before =================================="
 for i
 do
-  echo i
+  echo $i
 done
 
 # verification - after
@@ -66,8 +66,8 @@ done
 echo "============================ After getopt"
 for i
 do
-  echo ">i"
-  case "i" in
+  echo ">$i"
+  case "$i" in
         -h | --help) usage;exit;;
         -b | --build) echo "build Dockerfiles";build_stack;shift;;
         -u | --up) echo "start Dockerfiles";start_stack;shift;;
