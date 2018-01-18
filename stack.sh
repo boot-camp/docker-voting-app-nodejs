@@ -54,12 +54,8 @@ if [ $? != 0 ] ; then usage; exit 1 ; fi
 eval set -- $args
 
 # verification - before
-
-echo "Before =================================="
-for i
-do
-  echo $i
-done
+echo "call parameters ================================="
+echo "$args"
 
 # verification - after
 
