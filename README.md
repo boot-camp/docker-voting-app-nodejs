@@ -6,11 +6,11 @@ Title: Voting App
 [![pipeline status](https://gitlab.com/bootcamp-juniors/vote/badges/master/pipeline.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master) [![coverage report](https://gitlab.com/bootcamp-juniors/vote/badges/master/coverage.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master)
 
 | Service  | Docker Image           |
-|:---------|:-----------------------|:-------------|
+|:---------|:-----------------------|
 | API      | registry.gitlab.com/bootcamp-juniors/vote/vote     |
 | Worker   | registry.gitlab.com/bootcamp-juniors/vote/worker   |
 | Auditor  | registry.gitlab.com/bootcamp-juniors/vote/auditor  |
-| Client  | registry.gitlab.com/bootcamp-juniors/vote/voter     |
+| Client   | registry.gitlab.com/bootcamp-juniors/vote/voter    |
 
 | Node.js Packages    | npm                    | Build Status |
 |:--------------------|:-----------------------|:------------ |
