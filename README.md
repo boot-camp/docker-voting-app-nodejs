@@ -3,16 +3,9 @@ Title: Voting App
 ---
 # Docker Voting App (Node.js version)
 
-<<<<<<< HEAD
-[![pipeline status](https://gitlab.com/bootcamp-juniors/vote/badges/master/pipeline.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master)
-[![coverage report](https://gitlab.com/bootcamp-juniors/vote/badges/master/coverage.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master)
-
-| Service  | Docker Image           | Build Status |
-=======
 [![pipeline status](https://gitlab.com/bootcamp-juniors/vote/badges/master/pipeline.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master) [![coverage report](https://gitlab.com/bootcamp-juniors/vote/badges/master/coverage.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master)
 
 | Service  | Docker Image           |
->>>>>>> hotfix/test_hotfix
 |:---------|:-----------------------|:-------------|
 | API      | registry.gitlab.com/bootcamp-juniors/vote/vote     |
 | Worker   | registry.gitlab.com/bootcamp-juniors/vote/worker   |
