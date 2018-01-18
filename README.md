@@ -3,14 +3,21 @@ Title: Voting App
 ---
 # Docker Voting App (Node.js version)
 
+<<<<<<< HEAD
 [![pipeline status](https://gitlab.com/bootcamp-juniors/vote/badges/master/pipeline.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master)
 [![coverage report](https://gitlab.com/bootcamp-juniors/vote/badges/master/coverage.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master)
 
 | Service  | Docker Image           | Build Status |
+=======
+[![pipeline status](https://gitlab.com/bootcamp-juniors/vote/badges/master/pipeline.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master) [![coverage report](https://gitlab.com/bootcamp-juniors/vote/badges/master/coverage.svg)](https://gitlab.com/bootcamp-juniors/vote/commits/master)
+
+| Service  | Docker Image           |
+>>>>>>> hotfix/test_hotfix
 |:---------|:-----------------------|:-------------|
-| API      | bootcamps/vote         | [![Docker Build Status](https://img.shields.io/docker/build/bootcamps/vote.svg)](bootcamps/vote)
-| Worker   | bootcamps/vote-worker  | [![Docker Build Status](https://img.shields.io/docker/build/bootcamps/vote-worker.svg)](bootcamps/vote-worker)
-| Auditor  | bootcamps/vote-auditor | [![Docker Build Status](https://img.shields.io/docker/build/bootcamps/vote-auditor.svg)](bootcamps/vote-auditor)
+| API      | registry.gitlab.com/bootcamp-juniors/vote/vote     |
+| Worker   | registry.gitlab.com/bootcamp-juniors/vote/worker   |
+| Auditor  | registry.gitlab.com/bootcamp-juniors/vote/auditor  |
+| Client  | registry.gitlab.com/bootcamp-juniors/vote/voter     |
 
 | Node.js Packages    | npm                    | Build Status |
 |:--------------------|:-----------------------|:------------ |
