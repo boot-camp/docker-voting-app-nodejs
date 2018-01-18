@@ -69,8 +69,8 @@ do
   echo ">i"
   case "i" in
         -h | --help) usage;exit;;
-        -b|--build) echo "build Dockerfiles";build_stack;shift;;
-        -u|--up) echo "start Dockerfiles";start_stack;shift;;
+        -b | --build) echo "build Dockerfiles";build_stack;shift;;
+        -u | --up) echo "start Dockerfiles";start_stack;shift;;
   esac
 done
 
